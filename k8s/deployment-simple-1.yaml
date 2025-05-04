@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: my-web
+  labels:
+    app: my-k8-app
+spec:
+  selector:
+    matchLabels:
+      project: web
+  template:
+    metadata:
+      labels: 
+        project: web
+    spec:
+      containers:
+        - name: web-nginx
+          image: zomgra/nginx-load-balancer
+          ports:
+            - containerPort: 8080
+      livenessProbe:
+        
+
+--- 
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: my-web
+  labels:
+    app: my-k8-app
+spec:
+  type: NodePort
+  selector:
+    project: web
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 30080
+    
+

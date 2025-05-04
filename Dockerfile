@@ -25,7 +25,7 @@ COPY --from=builder-app1 /bin/app1 /app1
 COPY --from=builder-app2 /bin/app2 /app2
 
 # Expose ports
-EXPOSE 80
+EXPOSE 8080
 
 # Run Go applications and Nginx in background
 CMD ["/bin/sh", "-c", "/app1 & /app2 & nginx -g 'daemon off;'"]
